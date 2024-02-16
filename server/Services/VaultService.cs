@@ -6,12 +6,23 @@ public class VaultService(VaultRepository repo)
 {
     private readonly VaultRepository repo = repo;
 
-    internal object CreateVault(Vault data)
+    internal Vault CreateVault(Vault data)
     {
         return repo.CreateVault(data);
     }
 
-    internal object GetVault(int id, string userId)
+    internal string DeleteVault(int id, string userId)
+    {
+        Vault vault = this.GetVault(id, userId);
+        if (vault.CreatorId != userId)
+        {
+            throw new Exception("Not Your's");
+        }
+        repo.DeleteVault(id);
+        return $"{vault.Name} has been Deleted";
+    }
+
+    internal Vault GetVault(int id, string userId)
     {
         Vault vault = repo.GetVault(id);
         if ((vault == null) || (vault.IsPrivate && userId != vault.CreatorId))
@@ -19,5 +30,21 @@ public class VaultService(VaultRepository repo)
             throw new Exception($"No Vault Found With ID: {id}");
         }
         return vault;
+    }
+
+    internal Vault UpdateVault(Vault data, int id)
+    {
+        Vault vault = this.GetVault(id, data.CreatorId);
+        if (vault.CreatorId != data.CreatorId)
+        {
+            throw new Exception("Not Your's Bud");
+        }
+        vault.Name = data.Name ?? vault.Name;
+        vault.Description = data.Description ?? vault.Description;
+        vault.Img = data.Img ?? vault.Img;
+        if (data?.IsPrivate != null) vault.IsPrivate = !vault.IsPrivate;// No idea if this works
+
+        return repo.UpdateVault(vault);
+
     }
 }

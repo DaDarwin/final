@@ -26,7 +26,47 @@ public class VaultController(Auth0Provider auth, VaultService vaultService) : Co
     [HttpGet("{id}")]
     public async Task<ActionResult<Vault>> GetVault(int id)
     {
-        Account user = await auth.GetUserInfoAsync<Account>(HttpContext);
-        return Ok(vaultService.GetVault(id, user?.Id));
+        try
+        {
+            Account user = await auth.GetUserInfoAsync<Account>(HttpContext);
+            return Ok(vaultService.GetVault(id, user?.Id));
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
     }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Vault>> UpdateVault([FromBody] Vault data, int id)
+    {
+        try
+        {
+            Account user = await auth.GetUserInfoAsync<Account>(HttpContext);
+            data.CreatorId = user.Id;
+            return Ok(vaultService.UpdateVault(data, id));
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<ActionResult<string>> DeleteVault(int id)
+    {
+        try
+        {
+            Account user = await auth.GetUserInfoAsync<Account>(HttpContext);
+            return Ok(vaultService.DeleteVault(id, user.Id));
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+
 }
