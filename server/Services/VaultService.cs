@@ -1,5 +1,6 @@
 
 
+
 namespace final.Services;
 
 public class VaultService(VaultRepository repo)
@@ -30,6 +31,12 @@ public class VaultService(VaultRepository repo)
             throw new Exception($"No Vault Found With ID: {id}");
         }
         return vault;
+    }
+
+    internal List<VaultKeepView> GetVaultKeeps(int id, string userId)
+    {
+        this.GetVault(id, userId);
+        return repo.GetVaultKeeps(id);
     }
 
     internal Vault UpdateVault(Vault data, int id)

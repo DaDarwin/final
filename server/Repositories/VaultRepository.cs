@@ -1,6 +1,7 @@
 
 
 
+
 namespace final.Repositories;
 
 public class VaultRepository(IDbConnection db)
@@ -50,6 +51,25 @@ public class VaultRepository(IDbConnection db)
             vault.Creator = profile;
             return vault;
         }, new { id }).FirstOrDefault();
+    }
+
+    internal List<VaultKeepView> GetVaultKeeps(int id)
+    {
+        string sql = @"
+        SELECT
+        keeps.*,
+        vaultKeeps.id as vaultKeepId,
+        accounts.*
+        FROM keeps
+        JOIN vaultKeeps ON vaultKeeps.keepId = keeps.id
+        JOIN accounts ON accounts.id = keeps.creatorId
+        WHERE vaultKeeps.vaultId = @id;";
+        return db.Query<VaultKeepView, Profile, VaultKeepView>(sql, (keep, profile) =>
+        {
+            keep.Creator = profile;
+            return keep;
+        }, new { id }).ToList();
+
     }
 
     internal Vault UpdateVault(Vault data)

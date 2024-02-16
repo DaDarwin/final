@@ -38,11 +38,16 @@ CREATE TABLE vaults (
 
 CREATE TABLE vaultKeeps (
   id int AUTO_INCREMENT PRIMARY KEY,
-  keepId int,
-  vaultId int,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  keepId int NOT NULL,
+  vaultId int NOT NULL,
+  creatorID VARCHAR(255) NOT NULL,
   FOREIGN KEY (keepId) REFERENCES keeps (id) ON DELETE CASCADE,
-  FOREIGN KEY (vaultId) REFERENCES vaults (id) ON DELETE CASCADE
-)
+  FOREIGN KEY (vaultId) REFERENCES vaults (id) ON DELETE CASCADE,
+  FOREIGN KEY (creatorID) REFERENCES accounts (id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
 INSERT INTO
   keeps (name, description, img, creatorId)
 VALUES

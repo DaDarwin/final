@@ -68,5 +68,19 @@ public class VaultController(Auth0Provider auth, VaultService vaultService) : Co
         }
     }
 
+    [HttpGet("{id}/keeps")]
+    public async Task<ActionResult<List<VaultKeepView>>> GetVaultKeeps(int id)
+    {
+        try
+        {
+            Account user = await auth.GetUserInfoAsync<Account>(HttpContext);
+            return vaultService.GetVaultKeeps(id, user?.Id);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
 
 }
