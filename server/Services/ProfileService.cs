@@ -5,7 +5,7 @@ public class ProfileService(ProfileRepository repo)
 {
     private readonly ProfileRepository repo = repo;
 
-    internal Profile GetProfile(int id)
+    internal Profile GetProfile(string id)
     {
         Profile profile = repo.GetProfile(id);
         if (profile == null)
@@ -15,13 +15,13 @@ public class ProfileService(ProfileRepository repo)
         return profile;
     }
 
-    internal List<Keep> GetProfileKeeps(int id)
+    internal List<Keep> GetProfileKeeps(string id)
     {
         this.GetProfile(id);
         return repo.GetProfileKeeps(id);
     }
 
-    internal List<Vault> GetProfileVaults(int id, string user)
+    internal List<Vault> GetProfileVaults(string id, string user)
     {
         this.GetProfile(id);
         List<Vault> vaults = repo.GetProfileVaults(id);

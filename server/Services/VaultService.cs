@@ -49,8 +49,8 @@ public class VaultService(VaultRepository repo)
         vault.Name = data.Name ?? vault.Name;
         vault.Description = data.Description ?? vault.Description;
         vault.Img = data.Img ?? vault.Img;
-        if (data?.IsPrivate != null) vault.IsPrivate = !vault.IsPrivate;// No idea if this works
-
+        if (data.IsPrivate) vault.IsPrivate = true;
+        else vault.IsPrivate = false;// No idea if this works
         return repo.UpdateVault(vault);
 
     }

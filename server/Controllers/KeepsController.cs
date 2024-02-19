@@ -25,7 +25,7 @@ public class KeepsController(Auth0Provider auth, KeepsService keepsService) : Co
     {
         try
         {
-            return Ok(keepsService.GetKeep(id));
+            return Ok(keepsService.IncrementKeepViews(id));
         }
         catch (Exception error)
         {

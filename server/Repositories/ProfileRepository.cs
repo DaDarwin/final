@@ -5,7 +5,7 @@ public class ProfileRepository(IDbConnection db)
 {
     private readonly IDbConnection db = db;
 
-    internal Profile GetProfile(int id)
+    internal Profile GetProfile(string id)
     {
         string sql = @"
         SELECT 
@@ -16,7 +16,7 @@ public class ProfileRepository(IDbConnection db)
         return db.Query<Profile>(sql, new { id }).FirstOrDefault();
     }
 
-    internal List<Keep> GetProfileKeeps(int id)
+    internal List<Keep> GetProfileKeeps(string id)
     {
         string sql = @"
         SELECT
@@ -27,7 +27,7 @@ public class ProfileRepository(IDbConnection db)
         return db.Query<Keep>(sql, new { id }).ToList();
     }
 
-    internal List<Vault> GetProfileVaults(int id)
+    internal List<Vault> GetProfileVaults(string id)
     {
         string sql = @"
         SELECT

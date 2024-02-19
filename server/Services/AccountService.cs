@@ -1,3 +1,4 @@
+
 namespace final.Services;
 
 public class AccountService
@@ -30,5 +31,10 @@ public class AccountService
     original.Name = editData.Name?.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture?.Length > 0 ? editData.Picture : original.Picture;
     return _repo.Edit(original);
+  }
+
+  internal List<VaultKeepView> GetVaults(string id)
+  {
+    return _repo.getVaults(id);
   }
 }

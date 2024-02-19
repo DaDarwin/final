@@ -9,7 +9,7 @@ public class ProfileController(Auth0Provider auth, ProfileService profileService
 
 
     [HttpGet("{id}")]
-    ActionResult<Profile> GetProfile(int id)
+    public ActionResult<Profile> GetProfile(string id)
     {
         try
         {
@@ -22,7 +22,7 @@ public class ProfileController(Auth0Provider auth, ProfileService profileService
     }
 
     [HttpGet("{id}/keeps")]
-    ActionResult<List<Keep>> GetProfileKeeps(int id)
+    public ActionResult<List<Keep>> GetProfileKeeps(string id)
     {
         try
         {
@@ -36,7 +36,7 @@ public class ProfileController(Auth0Provider auth, ProfileService profileService
     }
 
     [HttpGet("{id}/vaults")]
-    async Task<ActionResult<List<Vault>>> GetProfileVaults(int id)
+    public async Task<ActionResult<List<Vault>>> GetProfileVaults(string id)
     {
         try
         {

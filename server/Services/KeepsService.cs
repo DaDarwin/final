@@ -52,5 +52,12 @@ public class KeepsService(KeepsRepository repo)
         return repo.UpdateKeep(keep);
 
     }
+
+    internal Keep IncrementKeepViews(int id)
+    {
+        Keep keep = this.GetKeep(id);
+        keep.Views += 1;
+        return repo.UpdateKeep(keep);
+    }
 }
 
