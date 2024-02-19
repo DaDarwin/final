@@ -1,43 +1,50 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
-  </div>
+	<section class="container-fluid">
+		<div class="row justify-content-center">
+			<div
+				v-if="keeps.length"
+				class="mason pt-2 col-12 md-col-10">
+				<KeepCard
+					v-for="keep in keeps"
+					:keep="keep" />
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
+import { computed, onMounted } from "vue";
+import { AppState } from "../AppState.js";
+import Pop from "../utils/Pop.js";
+import KeepCard from "../components/KeepCard.vue";
+import { keepService } from "../services/KeepService.js";
+
 export default {
-  setup() {
-    return {
-      
-    }
-  }
-}
+	setup() {
+		onMounted(() => {
+			getKeeps();
+		});
+		async function getKeeps() {
+			try {
+				await keepService.getKeeps();
+			} catch (error) {
+				Pop.error(error);
+			}
+		}
+		return { keeps: computed(() => AppState.keeps) };
+	},
+	components: { KeepCard },
+};
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+.mason {
+	columns: 20vw;
+}
 
-  .home-card {
-    width: clamp(500px, 50vw, 100%);
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+@media screen and (max-width: 768px) {
+	.mason {
+		columns: 45vw;
+	}
 }
 </style>

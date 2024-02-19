@@ -1,6 +1,6 @@
 <template>
 	<nav
-		class="d-flex justify-content-between align-items-center sticky-top bg-page pt-1 pb-2 px-3 border-bottom border-secondary">
+		class="d-flex justify-content-between align-items-center sticky-top bg-page pt-1 pb-2 ps-3 pe-4 border-bottom border-secondary position-relative">
 		<div class="d-flex h-100 align-items-center">
 			<router-link
 				class="navbar-brand d-flex"
@@ -14,8 +14,9 @@
 			</div>
 		</div>
 
-		<div class="logo border border-secondary rounded p-1 px-2">
-			<p class="p-0 m-0 text-secondary d-flex">
+		<div
+			class="logo border border-secondary rounded position-absolute translate-middle top-50 start-50 p-1 px-2">
+			<p class="p-0 m-0 text-secondary fs-4">
 				the
 				<br />keepr <br />
 				co.
@@ -66,7 +67,7 @@ export default {
 .logo {
 	aspect-ratio: 1/1;
 	p {
-		line-height: 17px;
+		line-height: 23px;
 	}
 }
 </style>
