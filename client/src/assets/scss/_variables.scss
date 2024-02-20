@@ -6,24 +6,24 @@
 @import "../../../node_modules/bootstrap/scss/utilities";
 
 $light-theme: (
-  "primary": #066ac9,
+  "primary": #000000,
   "secondary": #071e3b,
   "success": #0cbc87,
   "info": #17a2b8,
-  "warning": #f7c32e,
+  "warning": #f8f9fd,
   "danger": #d6293e,
-  "text": #f8f9fd,
+  "text": #f7c32e,
   "page": #f4f4f4
 );
 
 $dark-theme: (
-  "primary": #ff22ff,
+  "primary": #6e6666,
   "secondary": #2fff9a,
   "success": #aa49f9,
   "info": #01efb6,
-  "warning": #ffda6a,
+  "warning": #b1aafa,
   "danger": #ea868f,
-  "text": #b1aafa,
+  "text": #ffda6a,
   "page": #0a081b,
   "dark": #030110,
   "body-bg": #020314

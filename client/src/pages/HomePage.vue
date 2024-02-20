@@ -1,6 +1,7 @@
 <template>
 	<section class="container-fluid">
 		<div class="row justify-content-center">
+			<KeepModal />
 			<div
 				v-if="keeps.length"
 				class="mason pt-2 col-12 md-col-10">
@@ -17,6 +18,7 @@ import { computed, onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import KeepCard from "../components/KeepCard.vue";
+import KeepModal from "../components/KeepModal.vue";
 import { keepService } from "../services/KeepService.js";
 
 export default {
@@ -33,7 +35,7 @@ export default {
 		}
 		return { keeps: computed(() => AppState.keeps) };
 	},
-	components: { KeepCard },
+	components: { KeepCard, KeepModal },
 };
 </script>
 

@@ -5,11 +5,15 @@
 			<router-link
 				class="navbar-brand d-flex"
 				:to="{ name: 'Home' }">
-				<div class="fs-3 rounded-pill selectable p-2 me-2 text-secondary">
+				<div class="home fs-3 rounded-pill selectable p-2 me-2 text-secondary">
 					Home
 				</div>
 			</router-link>
-			<div class="fs-3 rounded-pill selectable p-2 text-secondary">
+			<div
+				class="fs-3 rounded-pill selectable p-2 text-secondary"
+				type="button"
+				data-bs-toggle="modal"
+				data-bs-target="#create-keep">
 				Create +
 			</div>
 		</div>
@@ -36,12 +40,14 @@
 			<Login />
 		</div>
 	</nav>
+	<KeepForm />
 </template>
 
 <script>
 import { onMounted, ref } from "vue";
 import { loadState, saveState } from "../utils/Store.js";
 import Login from "./Login.vue";
+import KeepForm from "./KeepForm.vue";
 export default {
 	setup() {
 		const theme = ref(loadState("theme") || "light");
@@ -59,7 +65,7 @@ export default {
 			},
 		};
 	},
-	components: { Login },
+	components: { Login, KeepForm },
 };
 </script>
 
@@ -68,6 +74,12 @@ export default {
 	aspect-ratio: 1/1;
 	p {
 		line-height: 23px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.home {
+		display: none;
 	}
 }
 </style>
