@@ -4,6 +4,7 @@ import { api } from "./AxiosService";
 
 class KeepService {
 	async getKeeps() {
+		AppState.keeps = [];
 		const res = await api.get("api/keeps");
 		AppState.keeps = res.data.map((pojo) => new Keep(pojo));
 	}

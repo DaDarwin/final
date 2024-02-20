@@ -17,7 +17,7 @@
 						:src="account.picture || user.picture"
 						alt="account photo"
 						height="40"
-						class="img-fluid rounded-circle" />
+						class="picture img-fluid rounded-circle" />
 				</button>
 				<ul class="dropdown-menu px-1">
 					<li>
@@ -36,7 +36,7 @@
 						</router-link>
 					</li>
 					<li>
-						<router-link :to="{ name: 'Profile', params: { id: 'a' } }">
+						<router-link :to="{ name: 'Profile', params: { id: account.id } }">
 							<div class="dropdown-item selectable text-secondary">
 								<i class="mdi mdi-account-search"></i>View Profile
 							</div>

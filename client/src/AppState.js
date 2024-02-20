@@ -1,11 +1,12 @@
 import { reactive } from "vue";
 import { Keep } from "./models/Keep.js";
 import { Vault } from "./models/Vault.js";
+import { Account } from "./models/Account.js";
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
 	user: {},
-	/** @type {import('./models/Account.js').Account} */
+	/** @type {Account} */
 	account: {},
 	/**@type {Keep[]} */
 	keeps: [],
@@ -15,4 +16,6 @@ export const AppState = reactive({
 	vaults: [],
 	/**@type {Vault} */
 	activeVault: null,
+	/**@type {Account} */
+	activeProfile: null,
 });

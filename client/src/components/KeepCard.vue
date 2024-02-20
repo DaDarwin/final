@@ -1,5 +1,7 @@
 <template>
-	<section class="row position-relative rounded mb-3 m-1">
+	<section
+		class="row position-relative rounded mb-3 m-1"
+		v-if="keep.id">
 		<img
 			@click="selectKeep()"
 			data-bs-toggle="modal"
@@ -13,11 +15,11 @@
 				class="d-flex title fs-3 p-1 text-warning bg-primary bg-opacity-50 rounded-pill">
 				{{ keep.name }}
 			</span>
-
-			<ProfileIcon
-				:profile="keep.creator"
-				class="icon position-absolute bottom-0 end-0 w-fit m-1" />
 		</div>
+		<ProfileIcon
+			v-if="keep.creator"
+			:profile="keep.creator"
+			class="icon position-absolute top-0 end-0 w-fit m-1" />
 	</section>
 </template>
 

@@ -33,8 +33,8 @@ public class AccountService
     return _repo.Edit(original);
   }
 
-  internal List<VaultKeepView> GetVaults(string id)
+  internal List<Vault> GetVaults(string id)
   {
-    return _repo.getVaults(id);
+    return _repo.GetVaults(id);
   }
 }

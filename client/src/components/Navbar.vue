@@ -77,6 +77,10 @@ export default {
 	}
 }
 
+nav {
+	height: 90px;
+}
+
 @media screen and (max-width: 768px) {
 	.home {
 		display: none;

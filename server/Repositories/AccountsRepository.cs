@@ -40,23 +40,22 @@ public class AccountsRepository
             SET 
               name = @Name,
               picture = @Picture
+              coverImg = @coverimg
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
   }
 
-  internal List<VaultKeepView> getVaults(string id)
+  internal List<Vault> GetVaults(string id)
   {
     string sql = @"
         SELECT
-        keeps.*,
-        vaultKeeps.id as vaultKeepId,
+        vaults.*,
         accounts.*
-        FROM keeps
-        JOIN vaultKeeps ON vaultKeeps.keepId = keeps.id
-        JOIN accounts ON accounts.id = keeps.creatorId
-        WHERE vaultKeeps.creatorId = @id;";
-    return _db.Query<VaultKeepView, Profile, VaultKeepView>(sql, (keep, profile) =>
+        FROM vaults
+        JOIN accounts ON accounts.id = vaults.creatorId
+        WHERE vaults.creatorId = @id;";
+    return _db.Query<Vault, Profile, Vault>(sql, (keep, profile) =>
     {
       keep.Creator = profile;
       return keep;

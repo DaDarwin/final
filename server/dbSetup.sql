@@ -70,3 +70,10 @@ WHERE
   keeps.id = 1
 GROUP BY
   (keeps.id);
+
+UPDATE
+  accounts
+SET
+  name = coverImg = 'https: / / encrypted - tbn0.gstatic.com / images ? q = tbn :ANd9GcTWOH - vlTxRes2popIdaGaB9fZaiKQIuu3yYw & usqp = CAU'
+WHERE
+  id = '65835d5f80d80bc692d5d8ed'

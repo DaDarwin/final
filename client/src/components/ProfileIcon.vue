@@ -10,7 +10,7 @@
 				:src="profile.picture"
 				:alt="`Picture of ${profile.name}`"
 				:title="`Go to ${profile.name}'s Profile?'`"
-				class="img-fluid w-100 rounded-circle" />
+				class="img-fluid w-100 rounded-circle work" />
 		</router-link>
 	</span>
 </template>
