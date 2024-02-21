@@ -7,7 +7,9 @@
 			Login
 		</span>
 		<div v-else>
-			<div class="dropdown-center">
+			<div
+				v-if="account?.id"
+				class="dropdown-center">
 				<button
 					class="picture rounded-circle dropdown-toggle border-0 p-0"
 					data-bs-toggle="dropdown"

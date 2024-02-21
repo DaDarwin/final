@@ -40,16 +40,41 @@
 							<span class="fs-3">{{ keep.name }}</span>
 							<p class="">{{ keep.description }}</p>
 						</div>
-						<div class="d-flex justify-content-between align-items-baseline">
+						<div
+							class="d-flex justify-content-between align-items-baseline w-100">
 							<button
 								v-if="keep.creatorId == account.id"
 								type="button"
-								class="btn btn-danger h-50 me-2">
+								class="btn btn-danger h-50 me-2"
+								@click="deleteKeep()">
 								<i class="mdi mdi-delete"></i> Delete Keep
 							</button>
 
-							<ProfileIcon :profile="keep.creator" />
-							<span>{{ keep.creator.name }}</span>
+							<form
+								v-if="vaults?.length && account?.id"
+								@submit.prevent="createVaultKeep()">
+								<select
+									v-model="vaultData.vaultId"
+									class="form-control">
+									<option
+										disabled
+										selected>
+										Select A Vault
+									</option>
+									<option
+										v-for="vault in vaults"
+										:value="vault.id">
+										{{ vault.name }}
+									</option>
+								</select>
+								<button class="btn btn-secondary w-100 mt-1">
+									Add to Vault
+								</button>
+							</form>
+							<div class="d-flex align-items-center">
+								<ProfileIcon :profile="keep.creator" />
+								<span class="fs-3 ps-1">{{ keep.creator.name }}</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -62,11 +87,40 @@
 import { AppState } from "../AppState";
 import { computed, ref, onMounted } from "vue";
 import ProfileIcon from "./ProfileIcon.vue";
+import Pop from "../utils/Pop";
+import { keepService } from "../services/KeepService";
+import { Modal } from "bootstrap";
 export default {
 	setup() {
+		const vaultData = ref({});
 		return {
+			vaultData,
 			keep: computed(() => AppState.activeKeep),
 			account: computed(() => AppState.account),
+			vaults: computed(() => AppState.accountVaults),
+			async deleteKeep() {
+				try {
+					const res = await Pop.confirm(
+						"Are You Sure You want to delete this keep?"
+					);
+					if (!res) {
+						return;
+					}
+					await keepService.deleteKeep(this.keep.id);
+					Modal.getOrCreateInstance("#keep-modal").hide();
+				} catch (error) {
+					Pop.error(error);
+				}
+			},
+			async createVaultKeep() {
+				try {
+					vaultData.value.keepId = this.keep.id;
+					await keepService.createVaultKeep(vaultData.value);
+					Pop.success("Keep Added!");
+				} catch (error) {
+					Pop.error(error);
+				}
+			},
 		};
 	},
 	components: { ProfileIcon },

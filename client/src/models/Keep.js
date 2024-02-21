@@ -11,6 +11,8 @@ export class Keep {
 		this.views = data.views;
 		this.kept = data.kept;
 
+		this.vaultKeepId = data.vaultKeepId;
+
 		this.creatorId = data.creatorId;
 		this.creator = data.creator;
 	}

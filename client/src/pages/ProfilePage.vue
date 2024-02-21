@@ -1,10 +1,10 @@
 <template>
 	<div class="row justify-content-center mx-5">
-		<div
+		<header
 			v-if="profile"
 			class="position-relative mb-5">
 			<img
-				class="w-100 rounded"
+				class="w-100 rounded coverImg"
 				:src="profile.coverImg"
 				alt="" />
 			<div class="position-absolute top-100 start-50 translate-middle">
@@ -20,9 +20,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<br class="my-5" />
-		<br class="my-5" />
+		</header>
 		<div
 			v-if="vaults.length"
 			class="mt-5 row">
@@ -111,5 +109,13 @@ img {
 }
 .icon {
 	aspect-ratio: 1;
+	height: 20vh;
+}
+header {
+	margin-top: 50px;
+}
+
+.coverImg {
+	max-height: 40vh;
 }
 </style>

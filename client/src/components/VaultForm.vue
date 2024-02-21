@@ -1,13 +1,13 @@
 <template>
 	<div
 		class="modal fade"
-		id="create-keep"
+		id="create-vault"
 		tabindex="-1"
 		aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title">Post your Keep!</h1>
+					<h1 class="modal-title">Post your vault!</h1>
 					<button
 						type="button"
 						class="btn-close"
@@ -15,32 +15,32 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form @submit.prevent="createKeep()">
+					<form @submit.prevent="createVault()">
 						<div>
-							<label for="keep-name">Name</label>
+							<label for="vault-name">Name</label>
 							<input
-								v-model="keepData.name"
-								id="keep-name"
+								v-model="vaultData.name"
+								id="vault-name"
 								class="form-control"
-								name="keep-name"
+								name="vault-name"
 								type="text" />
 						</div>
 						<div>
-							<label for="keep-img">Img</label>
+							<label for="vault-img">Img</label>
 							<input
-								v-model="keepData.img"
-								id="keep-img"
+								v-model="vaultData.img"
+								id="vault-img"
 								class="form-control"
-								name="keep-img"
+								name="vault-img"
 								type="text" />
 						</div>
 						<div>
-							<label for="keep-description">Name</label>
+							<label for="vault-description">Name</label>
 							<textarea
-								v-model="keepData.description"
-								id="keep-description"
+								v-model="vaultData.description"
+								id="vault-description"
 								class="form-control"
-								name="keep-description"
+								name="vault-description"
 								cols="10"
 								rows="5"></textarea>
 						</div>
@@ -56,15 +56,15 @@
 import { AppState } from "../AppState";
 import { computed, ref, onMounted } from "vue";
 import Pop from "../utils/Pop";
-import { keepService } from "../services/KeepService";
+import { vaultService } from "../services/VaultService";
 export default {
 	setup() {
-		const keepData = ref({});
+		const vaultData = ref({});
 		return {
-			keepData,
-			async createKeep() {
+			vaultData,
+			async createVault() {
 				try {
-					await keepService.createKeep(keepData.value);
+					await vaultService.createVault(vaultData.value);
 				} catch (error) {
 					Pop.error(error);
 				}

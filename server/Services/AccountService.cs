@@ -1,4 +1,5 @@
 
+
 namespace final.Services;
 
 public class AccountService
@@ -36,5 +37,14 @@ public class AccountService
   internal List<Vault> GetVaults(string id)
   {
     return _repo.GetVaults(id);
+  }
+
+  internal Account EditAccount(Account data)
+  {
+    Account account = _repo.GetById(data.Id);
+    account.Name = data.Name ?? account.Name;
+    account.Picture = data.Picture ?? account.Picture;
+    account.CoverImg = data.CoverImg ?? account.CoverImg;
+    return _repo.Edit(account);
   }
 }

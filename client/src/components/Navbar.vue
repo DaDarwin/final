@@ -10,12 +10,29 @@
 				</div>
 			</router-link>
 			<div
-				class="fs-3 rounded-pill selectable p-2 text-secondary"
-				type="button"
-				data-bs-toggle="modal"
-				data-bs-target="#create-keep">
+				v-if="account.id"
+				class="fs-3 selectable p-2 text-secondary"
+				data-bs-toggle="dropdown"
+				aria-expanded="false">
 				Create +
 			</div>
+			<ul class="dropdown-menu px-1">
+				<li
+					class="selectable"
+					type="button"
+					data-bs-toggle="modal"
+					data-bs-target="#create-keep">
+					Create Keep
+				</li>
+
+				<li
+					class="selectable"
+					type="button"
+					data-bs-toggle="modal"
+					data-bs-target="#create-vault">
+					Create Vault
+				</li>
+			</ul>
 		</div>
 
 		<div
@@ -41,13 +58,16 @@
 		</div>
 	</nav>
 	<KeepForm />
+	<VaultForm />
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { loadState, saveState } from "../utils/Store.js";
 import Login from "./Login.vue";
 import KeepForm from "./KeepForm.vue";
+import { AppState } from "../AppState";
+import VaultForm from "./VaultForm.vue";
 export default {
 	setup() {
 		const theme = ref(loadState("theme") || "light");
@@ -57,6 +77,7 @@ export default {
 		});
 
 		return {
+			account: computed(() => AppState.account),
 			theme,
 			toggleTheme() {
 				theme.value = theme.value == "light" ? "dark" : "light";
@@ -65,7 +86,7 @@ export default {
 			},
 		};
 	},
-	components: { Login, KeepForm },
+	components: { Login, KeepForm, VaultForm },
 };
 </script>
 

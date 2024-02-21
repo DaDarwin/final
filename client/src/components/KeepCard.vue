@@ -20,6 +20,13 @@
 			v-if="keep.creator"
 			:profile="keep.creator"
 			class="icon position-absolute top-0 end-0 w-fit m-1" />
+		<div v-if="route.name == 'Vault' && vault.creatorId == account.id">
+			<button
+				class="btn btn-danger position-absolute top-0 start-0"
+				@click="removeKeep()">
+				<i class="mdi mdi-close"></i>
+			</button>
+		</div>
 	</section>
 </template>
 
@@ -30,9 +37,11 @@ import { Keep } from "../models/Keep";
 import ProfileIcon from "./ProfileIcon.vue";
 import Pop from "../utils/Pop";
 import { keepService } from "../services/KeepService";
+import { useRoute } from "vue-router";
 export default {
 	props: { keep: { type: Keep, reqiured: true } },
 	setup(props) {
+		const route = useRoute();
 		async function selectKeep() {
 			try {
 				await keepService.getKeep(props.keep.id);
@@ -42,6 +51,23 @@ export default {
 		}
 		return {
 			selectKeep,
+			route,
+			vault: computed(() => AppState.activeVault),
+			account: computed(() => AppState.account),
+
+			async removeKeep() {
+				try {
+					const res = await Pop.confirm(
+						"Are You Sure You want to remove this keep from this vault?"
+					);
+					if (!res) {
+						return;
+					}
+					await keepService.removeVaultKeep(props.keep.vaultKeepId);
+				} catch (error) {
+					Pop.error(error);
+				}
+			},
 		};
 	},
 	components: { ProfileIcon },

@@ -1,10 +1,10 @@
 <template>
 	<div class="">
 		<section
+			@click="getVault()"
 			class="row position-relative rounded m-2"
 			v-if="vault.id">
 			<img
-				@click="selectvault()"
 				:src="vault.img"
 				alt=""
 				class="rounded p-0 selectable" />
@@ -30,18 +30,23 @@ import { computed, ref, onMounted } from "vue";
 import { Vault } from "../models/Vault.js";
 import Pop from "../utils/Pop";
 import { vaultService } from "../services/VaultService";
+import { router } from "../router";
 export default {
 	props: { vault: { type: Vault, reqiured: true } },
 	setup(props) {
-		async function selectVault() {
-			try {
-				vaultService.getVault(props.vault.id);
-			} catch (error) {
-				Pop.error(error);
-			}
-		}
 		return {
-			selectVault,
+			async getVault() {
+				try {
+					await vaultService.getVault(props.vault.id);
+					router.push({ name: "Vault", params: { id: props.vault.id } });
+				} catch (error) {
+					Pop.error(error);
+					router.push({
+						name: "Profile",
+						params: { id: props.vault.creatorId },
+					});
+				}
+			},
 		};
 	},
 };
