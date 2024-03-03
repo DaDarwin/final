@@ -1,6 +1,6 @@
 export const dev = window.location.origin.includes("localhost");
-export const baseURL = dev ? "https://localhost:7045" : "";
+export const baseURL = dev ? "https://localhost:7045" : "https://keeper.moresus.com";
 export const useSockets = false;
-export const domain = "dev-h6snzm7nk312z1nb.us.auth0.com";
-export const clientId = "1maRANVotkPMLKCvkkeYwWuz1BXzTlwh";
-export const audience = "http://sandyBoii.com";
+export const domain = ${{secrets.AUTH0_DOMAIN}};
+export const clientId = ${secrets.CLIENTID};
+export const audience = ${{secrets.AUTH0_AUDIENCE}};
