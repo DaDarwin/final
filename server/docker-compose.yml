@@ -4,6 +4,6 @@ services:
     image: your-dockerhub-username/final:latest
     restart: unless-stopped
     env_file:
-      - final-env
+      - keeper-env
     ports:
-      - "7045:80"
+      - "7046:80"
