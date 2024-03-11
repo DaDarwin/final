@@ -1,6 +1,7 @@
 version: '3'
 services:
   app:
+    restart: unless-stopped
     image: dadarwin/keeper:latest
     ports:
       - "7046:80"
