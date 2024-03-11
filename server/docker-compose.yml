@@ -3,7 +3,7 @@ services:
   app:
     image: dadarwin/keeper:latest
     ports:
-      - "7045:80"
+      - "7046:80"
     environment:
       - CONNECTION_STRING= server=SG-sandy-boii-db-8111-mysql-master.servers.mongodirector.com;database=sand;user id=sgroot;password=lnzMq1Z9W2UE@xdQ
       - AUTH_DOMAIN= dev-h6snzm7nk312z1nb.us.auth0.com
